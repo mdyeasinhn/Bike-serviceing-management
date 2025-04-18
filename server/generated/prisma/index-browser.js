@@ -117,26 +117,31 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId'
-};
-
-exports.Prisma.ProfileScalarFieldEnum = {
-  id: 'id',
-  bio: 'bio',
-  userId: 'userId'
-};
-
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
+exports.Prisma.CustomerScalarFieldEnum = {
+  customerId: 'customerId',
+  name: 'name',
   email: 'email',
-  name: 'name'
+  phone: 'phone',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BikeScalarFieldEnum = {
+  bikeId: 'bikeId',
+  brand: 'brand',
+  serviceDate: 'serviceDate',
+  model: 'model',
+  year: 'year',
+  customerId: 'customerId'
+};
+
+exports.Prisma.ServiceRecordScalarFieldEnum = {
+  id: 'id',
+  bikeId: 'bikeId',
+  serviceDate: 'serviceDate',
+  completionDate: 'completionDate',
+  description: 'description',
+  status: 'status'
 };
 
 exports.Prisma.SortOrder = {
@@ -153,12 +158,21 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Brand = exports.$Enums.Brand = {
+  HONDA: 'HONDA',
+  YAMAHA: 'YAMAHA'
+};
 
+exports.ServiceStatus = exports.$Enums.ServiceStatus = {
+  PENDING: 'PENDING',
+  INPROGRESS: 'INPROGRESS',
+  DONE: 'DONE'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
-  Profile: 'Profile',
-  User: 'User'
+  Customer: 'Customer',
+  Bike: 'Bike',
+  ServiceRecord: 'ServiceRecord'
 };
 
 /**
