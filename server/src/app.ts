@@ -2,6 +2,7 @@ import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors'
 import { StatusCodes } from 'http-status-codes';
 import cookieParser from 'cookie-parser';
+import router from './app/routes';
 
 const app: Application = express();
 
@@ -20,7 +21,7 @@ app.get('/', (req: Request, res: Response) => {
 
 
 // Application routes
-app.use('/api/v1', );
+app.use('/api', router);
 
 
 app.use( (req: Request, res: Response, next : NextFunction) => {
