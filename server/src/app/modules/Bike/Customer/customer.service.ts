@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import prisma from "../../../../shared/prisma"
 import { ICustomer } from "./customer.interface";
 import AppError from "../../../utils/AppError";
+import { Customer } from "@prisma/client";
 
 const createCustomer = async (payload: ICustomer) => {
 
@@ -35,7 +36,47 @@ const getAllCustomers = async () => {
     return result;
 };
 
+const getByIdFromDB = async (id: string): Promise<Customer | null> => {
+
+    const result = await prisma.customer.findUniqueOrThrow({
+        where: {
+            customerId: id,
+        }
+    })
+
+    return result;
+}
+
+const updatedIntoDB = async (id: string, data: Partial<Customer>): Promise<Customer> => {
+    await prisma.customer.findUniqueOrThrow({
+        where: {
+            customerId: id
+        }
+    })
+
+    const result = await prisma.customer.update({
+        where: {
+            customerId: id
+        },
+        data
+    })
+
+    return result;
+}
+
+const deleteCustomer = async (id: string) => {
+    const result = await prisma.customer.delete({
+      where: {
+        customerId: id,
+      },
+    });
+    return result;
+  };
+  
 export const customerService = {
     createCustomer,
     getAllCustomers,
+    getByIdFromDB,
+    updatedIntoDB,
+    deleteCustomer
 }

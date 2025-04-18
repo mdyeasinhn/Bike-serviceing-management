@@ -6,23 +6,24 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 // Customer table
 model Customer {
- customerId        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  phone     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  customerId String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  phone      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  bikes     Bike[] // A customer can have multiple bikes
+  bikes Bike[] // A customer can have multiple bikes
 
   @@map("customers")
 }
 
 // Bike table 
 model Bike {
-  bikeId          String          @id @default(uuid())
+  bikeId      String          @id @default(uuid())
   brand       Brand
   serviceDate DateTime
   model       String
@@ -34,7 +35,7 @@ model Bike {
 
 // Service Record
 model ServiceRecord {
-  id      String        @id @default(uuid())
+  id             String        @id @default(uuid())
   bikeId         String
   bike           Bike          @relation(fields: [bikeId], references: [bikeId])
   serviceDate    DateTime      @default(now())
@@ -50,6 +51,7 @@ enum Brand {
   HONDA
   YAMAHA
 }
+
 // enum for service status
 enum ServiceStatus {
   PENDING
