@@ -15,7 +15,17 @@ const createCustomer = catchAsync(async (req : Request, res : Response) => {
     });
   });
 
+  const getAllCustomers = catchAsync(async (req, res) => {
+    const result = await customerService.getAllCustomers();
+    sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      success: true,
+      message: "Customers fetched successfully!S",
+      data: result,
+    });
+  });
 
 export const customerController = {
     createCustomer,
+    getAllCustomers
 }
