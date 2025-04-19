@@ -42,7 +42,7 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 })
 
-// Update admin data by ID
+
 const updatedIntoDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const data = req.body;

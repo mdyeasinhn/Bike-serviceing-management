@@ -1,7 +1,10 @@
 import { ServiceRecord } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 import { IService } from "./serviceRecord.interface";
+import AppError from "../../utils/AppError";
+import { StatusCodes } from "http-status-codes";
 
+// Create a new service record
 const createService = async (payload: IService) => {
     const result = await prisma.serviceRecord.create({
         data: {
@@ -14,6 +17,7 @@ const createService = async (payload: IService) => {
     return result;
 };
 
+// Retrieve all service records, ordered by service date
 const getAllServices = async () => {
     const result = await prisma.serviceRecord.findMany({
         orderBy: {
@@ -23,25 +27,39 @@ const getAllServices = async () => {
     return result;
 };
 
-
+// Get a specific service record by ID
 const getSpecificRecord = async (id: string): Promise<ServiceRecord | null> => {
+    const exists = await prisma.serviceRecord.findUnique({
+        where: {
+            serviceId: id
+        },
+    });
+    if (!exists) {
+        throw new AppError(StatusCodes.NOT_FOUND, "Service record not found!");
+    }
 
     const result = await prisma.serviceRecord.findUniqueOrThrow({
         where: {
             serviceId: id,
         }
-    })
+    });
 
     return result;
 };
 
-
+// Update a service record by ID; set status to 'done' if completionDate is provided
 const updatedServiceRecord = async (id: string, data: Partial<ServiceRecord>): Promise<ServiceRecord> => {
-    await prisma.serviceRecord.findUniqueOrThrow({
+    const exists = await prisma.serviceRecord.findUnique({
         where: {
-            serviceId: id,
-        }
-    })
+            serviceId: id
+        },
+    });
+
+    if (!exists) {
+        throw new AppError(StatusCodes.NOT_FOUND, "Service record not found!");
+    }
+
+    // Automatically update status if completionDate is set
     if (data.completionDate) {
         data.status = "done";
     }
@@ -51,13 +69,18 @@ const updatedServiceRecord = async (id: string, data: Partial<ServiceRecord>): P
             serviceId: id
         },
         data
-    })
+    });
 
     return result;
-}
+};
+
+
+
+
 export const ServiceRecordService = {
     createService,
     getAllServices,
     getSpecificRecord,
-    updatedServiceRecord
+    updatedServiceRecord,
+    
 };

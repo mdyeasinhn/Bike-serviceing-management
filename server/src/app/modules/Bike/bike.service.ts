@@ -1,9 +1,12 @@
 import { Bike } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 import { IBike } from "./bike.interface";
+import AppError from "../../utils/AppError";
+import { StatusCodes } from "http-status-codes";
 
 
 const createBike = async (payload: IBike) => {
+
     const result = await prisma.bike.create({
       data: {
         brand: payload.brand,
@@ -25,6 +28,14 @@ const createBike = async (payload: IBike) => {
   };
 
   const getSpecificBike  = async (id: string): Promise<Bike | null> => {
+    const exists = await prisma.bike.findUnique({
+        where: {
+            bikeId: id
+        },
+    })
+    if (!exists) {
+        throw new AppError(StatusCodes.NOT_FOUND, "Bike not found!",);
+    }
 
     const result = await prisma.bike.findUniqueOrThrow({
         where: {

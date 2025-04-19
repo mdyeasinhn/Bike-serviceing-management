@@ -36,7 +36,7 @@ const getAllBikes = catchAsync(async (req, res) => {
       message: "Bike fetched successfully!",
       data: result,
     });
-  })
+  });
 export const BikeController ={
     createBike,
     getAllBikes,
