@@ -1,3 +1,4 @@
+import { Bike } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 import { IBike } from "./bike.interface";
 
@@ -23,8 +24,20 @@ const createBike = async (payload: IBike) => {
     return result;
   };
 
+  const getSpecificBike  = async (id: string): Promise<Bike | null> => {
+
+    const result = await prisma.bike.findUniqueOrThrow({
+        where: {
+            bikeId: id,
+        }
+    })
+
+    return result;
+}
+
 
 export const BikeService ={
     createBike,
-    getAllBikes
+    getAllBikes,
+    getSpecificBike,
 }
