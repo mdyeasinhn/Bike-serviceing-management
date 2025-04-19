@@ -37,9 +37,25 @@ const getAllServices = catchAsync(async (req: Request, res: Response) => {
     });
   });
 
+  const updatedServiceRecord = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const data = req.body;
+
+    const result = await ServiceRecordService.updatedServiceRecord(id, data);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: "Service marked as completed!",
+        data: result,
+    });
+
+})
+
 export const ServiceRecordController = {
     createService,
     getAllServices,
-    getSpecificRecord
+    getSpecificRecord,
+    updatedServiceRecord
 }
 

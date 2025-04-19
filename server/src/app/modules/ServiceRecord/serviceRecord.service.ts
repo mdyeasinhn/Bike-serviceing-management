@@ -33,10 +33,28 @@ const getSpecificRecord = async (id: string): Promise<ServiceRecord | null> => {
     })
 
     return result;
-}
+};
 
+
+const updatedServiceRecord = async (id: string, data: Partial<ServiceRecord>): Promise<ServiceRecord> => {
+    await prisma.serviceRecord.findUniqueOrThrow({
+        where: {
+            serviceId: id,
+        }
+    })
+
+    const result = await prisma.serviceRecord.update({
+        where: {
+            serviceId: id
+        },
+        data
+    })
+
+    return result;
+}
 export const ServiceRecordService = {
     createService,
     getAllServices,
-    getSpecificRecord
+    getSpecificRecord,
+    updatedServiceRecord
 };
