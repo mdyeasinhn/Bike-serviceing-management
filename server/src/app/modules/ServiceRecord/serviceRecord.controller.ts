@@ -12,8 +12,20 @@ const createService = catchAsync(async (req, res) => {
         data: result,
     });
 });
+const getAllServices = catchAsync(async (req, res) => {
+    const result = await ServiceRecordService.getAllServices();
+    sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      success: true,
+      message: "Service records fetched successfully!",
+      data: result,
+    });
+  });
+
 
 
 export const ServiceRecordController = {
-    createService
+    createService,
+    getAllServices
 }
+
