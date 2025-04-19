@@ -42,6 +42,9 @@ const updatedServiceRecord = async (id: string, data: Partial<ServiceRecord>): P
             serviceId: id,
         }
     })
+    if (data.completionDate) {
+        data.status = "done";
+    }
 
     const result = await prisma.serviceRecord.update({
         where: {
