@@ -1,3 +1,4 @@
+import { ServiceRecord } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 import { IService } from "./serviceRecord.interface";
 
@@ -22,7 +23,20 @@ const getAllServices = async () => {
     return result;
 };
 
+
+const getSpecificRecord = async (id: string): Promise<ServiceRecord | null> => {
+
+    const result = await prisma.serviceRecord.findUniqueOrThrow({
+        where: {
+            serviceId: id,
+        }
+    })
+
+    return result;
+}
+
 export const ServiceRecordService = {
     createService,
-    getAllServices
+    getAllServices,
+    getSpecificRecord
 };

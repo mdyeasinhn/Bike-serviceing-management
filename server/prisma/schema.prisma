@@ -34,7 +34,7 @@ model Bike {
 
 // Service Record
 model ServiceRecord {
-  id             String        @id @default(uuid())
+  serviceId             String        @id @default(uuid())
   bikeId         String
   bike           Bike          @relation(fields: [bikeId], references: [bikeId])
   serviceDate    DateTime      @default(now())

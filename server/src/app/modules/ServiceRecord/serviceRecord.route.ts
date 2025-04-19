@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/', ServiceRecordController.createService);
 router.get('/', ServiceRecordController.getAllServices);
+router.get('/:id', ServiceRecordController.getSpecificRecord);
 
 
 export const ServiceRecordRoutes = router;
