@@ -25,7 +25,6 @@ model Customer {
 model Bike {
   bikeId      String          @id @default(uuid())
   brand       Brand
-  serviceDate DateTime
   model       String
   year        Int
   customerId  String
@@ -48,13 +47,13 @@ model ServiceRecord {
 
 // enum for brand
 enum Brand {
-  HONDA
-  YAMAHA
+  Honda
+  Yamaha
 }
 
 // enum for service status
 enum ServiceStatus {
-  PENDING
-  INPROGRESS
-  DONE
+  pending
+  inprogress
+  done
 }

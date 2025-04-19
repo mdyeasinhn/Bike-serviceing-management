@@ -1,13 +1,20 @@
 import express from 'express'
-import { customerRoutes } from '../modules/Bike/Customer/customer.route';
+import { customerRoutes } from '../modules/Customer/customer.route';
+import { BikeRoutes } from '../modules/Bike/bike.route';
+
+
 
 const router = express.Router();
 
 
 const moduleRoutes =[
     {
-        path : '/customer',
+        path : '/customers',
         route : customerRoutes
+    },
+    {
+        path : '/bikes',
+        route : BikeRoutes
     },
     
 ]

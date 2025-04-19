@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes";
-import prisma from "../../../../shared/prisma"
 import { ICustomer } from "./customer.interface";
-import AppError from "../../../utils/AppError";
 import { Customer } from "@prisma/client";
+import prisma from "../../../shared/prisma";
+import AppError from "../../utils/AppError";
 
 const createCustomer = async (payload: ICustomer) => {
 
